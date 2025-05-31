@@ -1,5 +1,7 @@
 # My Notes App
 
+[![CI](https://github.com/YvonneBreuer/notes-app/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/YvonneBreuer/notes-app/actions/workflows/ci.yml)
+
 This is simple web application for managing notes built with Next.js and TypeScript. Each note consists of a title and text content. Notes can be added, edited and removed and are persisted in the browser's local storage.
 
 ## Prerequisites

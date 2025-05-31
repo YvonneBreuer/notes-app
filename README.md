@@ -1,16 +1,14 @@
 # My Notes App
 
-This is simple web application for managing notes built with Next.js and TypeScript. Each note consists of a title and text content. Notes can be added, edited and removed and are persisted in the brower's local storage.
+This is simple web application for managing notes built with Next.js and TypeScript. Each note consists of a title and text content. Notes can be added, edited and removed and are persisted in the browser's local storage.
 
-## Install Dependencies
+## Prerequisites
 
-- `npm ci`
+- `Node.js` in version 18.18 or later and `Node.js` package manager like `npm`
 
-## Scripts
+## Install Project Dependencies
 
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run start` - Start production server
+- `npm install`
 
 ## License
 

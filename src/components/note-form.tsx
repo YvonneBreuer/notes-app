@@ -82,6 +82,7 @@ const NoteForm: React.FC<NoteFormProps> = ({
             )}
           />
           <Button
+            aria-label="Save note"
             className="bg-custom-500 text-white hover:bg-custom-400"
             type="submit"
           >

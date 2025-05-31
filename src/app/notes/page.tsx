@@ -1,36 +1,24 @@
 "use client";
-import React from "react";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/header";
 import Note from "@/components/note";
 import { cloneDeep } from "lodash";
-import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { useLocalStorageSync } from "@/hooks/useLocalStorageSync";
+import { NoteProps } from "@/types/note-interfaces";
+
+const appName = "my-notes-app";
 
 export default function Notes() {
-  const [notes, setNotes] = useState<
-    { id: string; title: string; content: string; editable: boolean }[]
-  >(() => {
-    if (typeof window === "undefined" || !window.localStorage) {
-      return [];
-    }
-
-    return localStorage.getItem("encrypt-my-notes")
-      ? JSON.parse(localStorage.getItem("encrypt-my-notes") as string)
-      : [];
-  });
-
-  React.useEffect(() => {
-    localStorage.setItem("encrypt-my-notes", JSON.stringify(notes));
-  }, [notes]);
+  const [notes, setNotes] = useLocalStorageSync<NoteProps>(appName);
 
   const addEmptyNote = () => {
     setNotes([
       {
         id: `${notes.length}:${Date.now()}`,
         title: "",
-        content: "",
+        note: "",
         editable: true,
       },
       ...notes,
@@ -61,12 +49,12 @@ export default function Notes() {
                 id={note.id}
                 index={index}
                 title={note.title}
-                content={note.content}
+                note={note.note}
                 editable={note.editable}
-                updateNote={(index: number, title: string, content: string) => {
+                updateNote={(index: number, title: string, note: string) => {
                   const newNotes = cloneDeep(notes);
                   newNotes[index]["title"] = title;
-                  newNotes[index]["content"] = content;
+                  newNotes[index]["note"] = note;
                   newNotes[index]["editable"] = false;
                   setNotes(newNotes);
                 }}

@@ -1,5 +1,5 @@
-import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
+import { Separator } from "@/components/ui/separator";
 
 const Header: React.FC = () => {
   return (

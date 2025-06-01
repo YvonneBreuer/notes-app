@@ -1,13 +1,6 @@
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import { NoteFormProps } from "@/types/note-interfaces";
-
 import {
   Form,
   FormField,
@@ -17,6 +10,13 @@ import {
   FormDescription,
   FormMessage,
 } from "@/components/ui/form";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+
+import { NoteFormProps } from "@/types/note-interfaces";
 
 const messageTitle = "Title must be at least 2 characters.";
 const messageNote = "Note must be at least 2 characters.";
@@ -26,6 +26,10 @@ const formSchema = z.object({
   note: z.string().min(2, { message: messageNote }),
 });
 
+// NoteForm is a reusable form component for creating or editing a note.
+// - Accepts initial values for title and note, and calls handleSubmit with the form data on submit.
+// - Provides a button to close the editor.
+// - Designed for use inside the Note component for both adding and editing notes.
 const NoteForm: React.FC<NoteFormProps> = ({
   title,
   note,

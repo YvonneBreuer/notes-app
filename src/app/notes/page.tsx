@@ -1,15 +1,19 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import Header from "@/components/header";
-import Note from "@/components/note";
 import { cloneDeep } from "lodash";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+
+import Header from "@/components/header";
+import Note from "@/components/note";
 import { useLocalStorageSync } from "@/hooks/useLocalStorageSync";
 import { NoteProps } from "@/types/note-interfaces";
 
 const appName = "my-notes-app";
 
+// Notes is the main page component for displaying and managing all notes.
+// - Uses a custom hook to persist notes in localStorage.
+// - Allows users to add, edit, and remove notes. All changes are immediately saved to localStorage.
 export default function Notes() {
   const [notes, setNotes] = useLocalStorageSync<NoteProps>(appName);
 
@@ -23,6 +27,20 @@ export default function Notes() {
       },
       ...notes,
     ]);
+  };
+
+  const updateNote = (index: number, title: string, note: string) => {
+    const newNotes = cloneDeep(notes);
+    newNotes[index]["title"] = title;
+    newNotes[index]["note"] = note;
+    newNotes[index]["editable"] = false;
+    setNotes(newNotes);
+  };
+
+  const removeNote = (index: number) => {
+    const newNotes = cloneDeep(notes);
+    newNotes.splice(index, 1);
+    setNotes(newNotes);
   };
 
   return (
@@ -51,18 +69,8 @@ export default function Notes() {
                 title={note.title}
                 note={note.note}
                 editable={note.editable}
-                updateNote={(index: number, title: string, note: string) => {
-                  const newNotes = cloneDeep(notes);
-                  newNotes[index]["title"] = title;
-                  newNotes[index]["note"] = note;
-                  newNotes[index]["editable"] = false;
-                  setNotes(newNotes);
-                }}
-                removeNote={(index: number) => {
-                  const newNotes = cloneDeep(notes);
-                  newNotes.splice(index, 1);
-                  setNotes(newNotes);
-                }}
+                updateNote={updateNote}
+                removeNote={removeNote}
               ></Note>
             ))}
           </div>
